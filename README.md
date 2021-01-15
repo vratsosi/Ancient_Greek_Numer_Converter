@@ -5,6 +5,11 @@ This is an Ancient Greek number converter. It can convert Arabic numbers to Gree
 
 For example:
 
-numberConvert(1000)
+numberConvert(1)
 
-prints: ͵Α
+prints: A΄
+
+
+Myriads are represented with the letter μ
+
+More information about Greek numerals: https://en.wikipedia.org/wiki/Greek_numerals 
