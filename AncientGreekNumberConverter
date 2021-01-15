@@ -1,0 +1,151 @@
+import math
+
+def number_convert_switcher(arithmos):
+
+    switcher = {
+        1: 'Α',
+        2: 'Β',
+        3: 'Γ',
+        4: 'Δ',
+        5: 'Ε',
+        6: 'Ϛ',
+        7: 'Ζ',
+        8: 'Η',
+        9: 'Θ',
+        10: 'Ι',
+        20: 'Κ',
+        30: 'Λ',
+        40: 'Μ',
+        50: 'Ν',
+        60: 'Ξ',
+        70: 'Ο', 
+        80: 'Π',
+        90: 'Ϟ',
+        100: 'Ρ',
+        200: 'Σ',
+        300: 'Τ',
+        400: 'Υ',
+        500: 'Φ',
+        600: 'Χ',
+        700: 'Ψ',
+        800: 'Ω',
+        900: 'Ϡ',
+        1000: '͵Α',
+        2000: '͵Β',
+        3000: '͵Γ',
+        4000: '͵Δ',
+        5000: '͵Ε',
+        6000: '͵Ϛ',
+        7000: '͵Z',
+        8000: '͵H',
+        9000: '͵Θ',
+    }
+    if type(arithmos) == str and arithmos != "":
+        return list(switcher.keys())[list(switcher.values()).index(arithmos)]
+    else:
+        return switcher.get(arithmos, "")
+
+def numberConvert_4(arithmos):
+    if type(arithmos)==int:
+        arithmosEnd=""
+        for i in reversed(range(len(str(arithmos)))):
+
+            arithmosStrNum=str(arithmos)
+            zeros=""
+
+            for j in range(i):
+
+                zeros+="0"
+
+            arithmosStr=arithmosStrNum[len(arithmosStrNum)-i-1]+zeros
+            arithmosEnd+=number_convert_switcher(int(arithmosStr))
+        if arithmos % 1000 == 0:
+
+            return (arithmosEnd)
+        else:
+            return (arithmosEnd + "΄")
+    else:
+        arithmosEnd=0
+        arithmosList = []
+        arithmosList[:] = arithmos
+        if arithmosList[0] == "͵":
+            arithmosList.pop(0)
+            arithmosList[0] = "͵" + arithmosList[0]
+        if arithmosList[-1] == "΄":
+            arithmosList.pop(-1)
+
+
+        for i in range (len(arithmosList)):
+            arithmosEnd+=number_convert_switcher(arithmosList[i])
+        return arithmosEnd
+
+
+def numberToList(number):
+  a= math.ceil(len(str(number))/4)
+
+  numberList = []
+  numberString = str(number)
+  j = len(numberString)
+  h = len(numberString)-4
+  for i in range(math.ceil(len(str(number))/4)):
+    numberList.append(numberString[h:j])
+    j = h
+    h -=4
+    if h<0:
+      h=0
+  return numberList
+
+
+def numberConvertMoreThan4(number):
+    if type(number)==int:
+      numberList = numberToList(number)
+      numberFinal = ''
+
+      for i in range(len(numberList)):
+        if i==0 and int(numberList[i]) != 0:
+          numberFinal = '.' + numberConvert_4(int(numberList[0]))
+        elif int(numberList[i]) != 0:
+          numberFinal = numberConvert_4(i) + 'μ' + numberConvert_4(int(numberList[i])) + numberFinal
+      
+
+      return numberFinal.replace('΄', '')
+
+    else:
+
+      numberFinal=0
+      numberList=number.split('.')
+
+      if len(numberList)==2:
+        
+        numberFinal+=numberConvert_4(numberList[1])
+        numberList.pop(1)
+      numberList1=numberList[0].split('#')
+
+      for i in range(len(numberList1)):
+
+        numberList2 = []
+        numberList2 = numberList1[i].split('μ')
+        numberFinal += numberConvert_4(numberList2[1])*(10000**numberConvert_4(numberList2[0]))
+      return numberFinal
+
+
+def numberConvert(number):
+
+    if len(str(number)) > 4:
+
+      return numberConvertMoreThan4(number)
+
+    else:
+
+      return numberConvert_4(number)
+      
+
+
+
+#example:
+
+print(numberConvert(1000))      
+
+#prints: ͵Α
+
+
