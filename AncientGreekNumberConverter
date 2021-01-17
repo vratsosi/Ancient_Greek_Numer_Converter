@@ -3,42 +3,42 @@ import math
 def number_convert_switcher(arithmos):
 
     switcher = {
-        1: 'Α',
-        2: 'Β',
-        3: 'Γ',
-        4: 'Δ',
-        5: 'Ε',
-        6: 'Ϛ',
-        7: 'Ζ',
-        8: 'Η',
-        9: 'Θ',
-        10: 'Ι',
-        20: 'Κ',
-        30: 'Λ',
-        40: 'Μ',
-        50: 'Ν',
-        60: 'Ξ',
-        70: 'Ο', 
-        80: 'Π',
+        1: 'α',
+        2: 'β',
+        3: 'γ',
+        4: 'δ',
+        5: 'ε',
+        6: 'ϛ',
+        7: 'ζ',
+        8: 'η',
+        9: 'θ',
+        10: 'ι',
+        20: 'κ',
+        30: 'λ',
+        40: 'μ',
+        50: 'ν',
+        60: 'ξ',
+        70: 'ο', 
+        80: 'π',
         90: 'Ϟ',
-        100: 'Ρ',
-        200: 'Σ',
-        300: 'Τ',
-        400: 'Υ',
-        500: 'Φ',
-        600: 'Χ',
-        700: 'Ψ',
-        800: 'Ω',
-        900: 'Ϡ',
-        1000: '͵Α',
-        2000: '͵Β',
-        3000: '͵Γ',
-        4000: '͵Δ',
-        5000: '͵Ε',
-        6000: '͵Ϛ',
-        7000: '͵Z',
-        8000: '͵H',
-        9000: '͵Θ',
+        100: 'ρ',
+        200: 'σ',
+        300: 'τ',
+        400: 'υ',
+        500: 'φ',
+        600: 'χ',
+        700: 'ψ',
+        800: 'ω',
+        900: 'ϡ',
+        1000: '͵α',
+        2000: '͵β',
+        3000: '͵γ',
+        4000: '͵δ',
+        5000: '͵ε',
+        6000: '͵ϛ',
+        7000: '͵ζ',
+        8000: '͵η',
+        9000: '͵θ',
     }
     if type(arithmos) == str and arithmos != "":
         return list(switcher.keys())[list(switcher.values()).index(arithmos)]
@@ -80,6 +80,7 @@ def numberConvert_4(arithmos):
         return arithmosEnd
 
 
+
 def numberToList(number):
   a= math.ceil(len(str(number))/4)
 
@@ -96,6 +97,7 @@ def numberToList(number):
   return numberList
 
 
+
 def numberConvertMoreThan4(number):
     if type(number)==int:
       numberList = numberToList(number)
@@ -105,11 +107,17 @@ def numberConvertMoreThan4(number):
         if i==0 and int(numberList[i]) != 0:
           numberFinal = '.' + numberConvert_4(int(numberList[0]))
         elif int(numberList[i]) != 0:
-          numberFinal = numberConvert_4(i) + 'μ' + numberConvert_4(int(numberList[i])) + numberFinal
-      
+          numberFinal =' χαι '+ numberConvert_4(i) + 'Μ' + numberConvert_4(int(numberList[i])) + numberFinal
+        
+      if numberFinal[1]== 'χ':
+        numberFinal = numberFinal[5:]
 
-      return numberFinal.replace('΄', '')
+      if numberFinal[-1] == '΄':
 
+        return numberFinal#.replace('΄', '')+'΄'
+      else:
+        return numberFinal#.replace('΄', '')
+        
     else:
 
       numberFinal=0
@@ -119,12 +127,12 @@ def numberConvertMoreThan4(number):
         
         numberFinal+=numberConvert_4(numberList[1])
         numberList.pop(1)
-      numberList1=numberList[0].split('#')
+      numberList1=numberList[0].split(' χαι ')
 
       for i in range(len(numberList1)):
 
         numberList2 = []
-        numberList2 = numberList1[i].split('μ')
+        numberList2 = numberList1[i].split('Μ')
         numberFinal += numberConvert_4(numberList2[1])*(10000**numberConvert_4(numberList2[0]))
       return numberFinal
 
@@ -141,11 +149,65 @@ def numberConvert(number):
       
 
 
+def numberConv(number):
 
-#example:
+  if type(number) == float:
 
-print(numberConvert(1000))      
+    numberFraction = list((number).as_integer_ratio())
 
-#prints: ͵Α
+    if numberConvert(numberFraction[0]) == 'α΄':
+      return numberConvert(numberFraction[1]).replace('΄', '΄΄')
+
+    else:
+      return numberConvert(numberFraction[0]) +','+numberConvert(numberFraction[1]).replace('΄', '΄΄')
+
+  elif type(number) == str and ',' in number:
+
+   
+      numberList=number.split(',')
+      arithmitis = numberConvert(numberList[0])
+      paronomastis = numberConvert(numberList[1].replace('΄', ''))
+
+      apotelesma = arithmitis/paronomastis
+
+      return apotelesma
+
+  elif type(number) == str and number[-2]=='΄':
+
+    return 1/numberConvert(number.replace('΄', ''))
+      
+  else:
+    return numberConvert(number)
 
 
+
+
+#EXAMPLES:
+
+
+print(numberConv(1))  
+
+#prints: α΄
+
+print(numberConv('͵α'))  
+
+#prints: 1000
+
+print(numberConv(1234567))
+
+
+print(numberConv('γ΄Μ͵βρπζ΄ χαι β΄Μχε΄ χαι α΄Μ͵ϛϡδ΄.͵αψϞζ΄'))      
+
+#prints: 2187060569041797
+
+print(numberConv(2187060569041797))   
+
+#prints: γ΄Μ͵βρπζ΄ χαι β΄Μχε΄ χαι α΄Μ͵ϛϡδ΄.͵αψϞζ΄
+
+print(numberConv(1.5))
+
+#prints: γ΄,β΄΄
+
+print(numberConv('β΄΄'))
+
+#prints: 0.5
