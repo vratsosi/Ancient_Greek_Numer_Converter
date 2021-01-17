@@ -1,15 +1,36 @@
-# Ancient_Greek_Numer_Converter
+# GreekNumerConverter
 
 
-This is an Ancient Greek number converter. It can convert Arabic numbers to Greek.
+This is a Greek number converter. It can convert Arabic numbers to Greek.
 
 For example:
 
-numberConvert(1)
+print(numberConv(1))  
 
-prints: A΄
+#prints: α΄
 
+print(numberConv('͵α'))  
 
-Myriads are represented with the letter μ
+#prints: 1000
+
+print(numberConv(1234567))
+
+print(numberConv('γ΄Μ͵βρπζ΄ χαι β΄Μχε΄ χαι α΄Μ͵ϛϡδ΄.͵αψϞζ΄'))      
+
+#prints: 2187060569041797
+
+print(numberConv(2187060569041797))   
+
+#prints: γ΄Μ͵βρπζ΄ χαι β΄Μχε΄ χαι α΄Μ͵ϛϡδ΄.͵αψϞζ΄
+
+print(numberConv(1.5))
+
+#prints: γ΄,β΄΄
+
+print(numberConv('β΄΄'))
+
+#prints: 0.5
+
+Myriads are represented with the letter M
 
 More information about Greek numerals: https://en.wikipedia.org/wiki/Greek_numerals 
