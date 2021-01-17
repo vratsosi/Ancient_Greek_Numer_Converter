@@ -1,7 +1,7 @@
 # GreekNumerConverter
 
 
-This is a Greek number converter. It can convert Arabic numbers to Greek.
+This is a Greek number converter. It can convert Arabic numbers to Greek and the other way around.
 
 For example:
 
